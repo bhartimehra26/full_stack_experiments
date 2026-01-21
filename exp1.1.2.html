@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking Application</title>
+    <style>
+        body 
+        {
+            font-family: 'Times New Roman';
+            background: powderblue;
+        }
+        .bank
+        {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            text-align: center;
+        }
+        input, button 
+        {
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            width: 90%;
+            box-sizing: border-box;
+        }
+        button 
+        {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="bank">
+        <h2>Bank Account</h2>
+        <h3>Current Balance: ₹<span id="balance">2000</span></h3>
+        <input type="number" id="amount" placeholder="Enter Amount">
+        <button onclick="deposit()">Deposit</button>
+        <button onclick="withdraw()">Withdraw</button>
+    </div>
+    <script>
+        let balance = 2000;
+        function deposit() 
+        {
+            let amt = Number(document.getElementById("amount").value);
+            if(amt<=5000)
+            {
+                balance += amt;
+                document.getElementById("balance").innerText = balance;
+            }
+            else
+            {
+                alert("Cannot deposit more than 5000 in one transaction")
+            }
+        }
+        function withdraw() 
+        {
+            let amt = Number(document.getElementById("amount").value);
+            if (amt <= balance) 
+            {
+                balance -= amt;
+                document.getElementById("balance").innerText = balance;
+            } 
+            else 
+            {
+                alert("Insufficient Balance");
+            }
+        }
+    </script>
+</body>
+</html>
