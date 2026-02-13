@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SVG Drawing Tool</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+}
+#toolbar {
+  margin-bottom: 10px;
+}
+svg {
+  border: 2px solid #333;
+  cursor: crosshair;
+}
+button {
+  margin-left: 20px;
+}
+</style>
+</head>
+<body>
+<div id="toolbar">
+  Select Color:
+  <input type="color" id="colorPicker" value="#000000">
+  <button id="clearBtn">Clear</button>
+</div>
+<svg id="canvas" width="500" height="300"></svg>
+<script>
+const svg = document.getElementById("canvas");
+const colorPicker = document.getElementById("colorPicker");
+const clearBtn = document.getElementById("clearBtn");
+let drawing = false;
+let path;
+svg.addEventListener("mousedown", function (e) {
+  drawing = true;
+  path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path.setAttribute("stroke", colorPicker.value);
+  path.setAttribute("stroke-width", 2);
+  path.setAttribute("fill", "none");
+  path.setAttribute("d", `M ${e.offsetX} ${e.offsetY}`);
+  svg.appendChild(path);
+});
+svg.addEventListener("mousemove", function (e) {
+  if (!drawing) return;
+  const d = path.getAttribute("d");
+  path.setAttribute("d", `${d} L ${e.offsetX} ${e.offsetY}`);
+});
+svg.addEventListener("mouseup", function () {
+  drawing = false;
+});
+svg.addEventListener("mouseleave", function () {
+  drawing = false;
+});
+clearBtn.addEventListener("click", function () {
+  svg.innerHTML = "";
+});
+</script>
+</body>
+</html>
